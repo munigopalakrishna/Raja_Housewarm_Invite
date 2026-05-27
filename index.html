@@ -1,0 +1,626 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Noto+Serif+Tamil:wght@400;500;600&family=Great+Vibes&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body { background: #f5ede0; }
+
+  .invite-wrapper {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 12px 8px 24px;
+    font-family: 'Cormorant Garamond', serif;
+    position: relative;
+  }
+
+  .lang-toggle {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .lang-btn {
+    padding: 5px 14px;
+    border: 1.5px solid #8B4513;
+    background: transparent;
+    color: #8B4513;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.5px;
+  }
+
+  .lang-btn.active {
+    background: #8B4513;
+    color: #fff5e6;
+  }
+
+  .lang-btn.tamil {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 12px;
+  }
+
+  .card {
+    background: linear-gradient(160deg, #fdf6ec 0%, #fef9f1 50%, #fdf4e3 100%);
+    border: 2px solid #c8832a;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(139,69,19,0.15);
+  }
+
+  .card::before, .card::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 0.8px solid #d4a054;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .card::after {
+    inset: 10px;
+    border-color: #e8c87a;
+    opacity: 0.6;
+  }
+
+  .top-border {
+    width: 100%;
+    height: 90px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bottom-border {
+    width: 100%;
+    height: 90px;
+    position: relative;
+    overflow: hidden;
+    transform: scaleY(-1);
+  }
+
+  .body-content {
+    padding: 0 15px 10px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .shree {
+    font-size: 13px;
+    color: #7a3e0f;
+    letter-spacing: 3px;
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+
+  .shree.tamil {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .title-main {
+    font-family: 'Great Vibes', cursive;
+    font-size: 48px;
+    color: #6b2f0a;
+    line-height: 1.05;
+    margin-bottom: 2px;
+    text-shadow: 1px 1px 2px rgba(139,69,19,0.2);
+  }
+
+  .title-sub {
+    font-size: 22px;
+    font-weight: 600;
+    color: #7a3e0f;
+    letter-spacing: 4px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  .title-sub.tamil {
+    font-family: 'Noto Serif Tamil', serif;
+    letter-spacing: 1px;
+    font-size: 18px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 1px 0;
+    color: #c8832a;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 0.8px;
+    background: linear-gradient(to right, transparent, #c8832a, transparent);
+  }
+
+  .divider-text {
+    font-size: 18px;
+    color: #c8832a;
+  }
+
+  .presents-by {
+    font-size: 13px;
+    color: #8B5E3C;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .presents-by.tamil {
+    font-family: 'Noto Serif Tamil', serif;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+  }
+
+  .presenter-name {
+    font-size: 30px;
+    font-weight: 600;
+    color: #5a1e05;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .presenter-name.tamil {
+    font-family: 'Noto Serif Tamil', serif;
+    font-style: normal;
+  }
+
+  .invite-text {
+    font-size: 14.5px;
+    color: #6b3d1a;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .invite-text.tamil {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .guest-block {
+    background: rgba(200, 131, 42, 0.08);
+    border: 0.8px solid #d4a054;
+    border-radius: 3px;
+    padding: 14px 20px;
+    margin: 14px 0;
+  }
+
+  .guest-name {
+    font-size: 25px;
+    font-weight: 600;
+    color: #5a1e05;
+    line-height: 1.5;
+  }
+
+  .guest-name.tamil {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .guest-sep {
+    color: #c8832a;
+    font-size: 16px;
+    margin: 4px 0;
+  }
+
+  .details-grid {
+    margin: 0px;
+    text-align: center;
+  }
+
+  .detail-row {
+    margin-bottom: 10px;
+  }
+
+  .detail-label {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #9e6830;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .detail-label.tamil {
+    font-family: 'Noto Serif Tamil', serif;
+    letter-spacing: 0.5px;
+    font-size: 11px;
+  }
+
+  .detail-value {
+    font-size: 17px;
+    font-weight: 600;
+    color: #3d1505;
+    line-height: 1.4;
+  }
+
+  .detail-value.tamil {
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .venue-value {
+    font-size: 15px;
+  }
+
+  .footer-note {
+    font-size: 13px;
+    color: #9e6830;
+    font-style: italic;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 0.8px solid #d4a054;
+  }
+
+  .footer-note.tamil {
+    font-family: 'Noto Serif Tamil', serif;
+    font-style: normal;
+    font-size: 12px;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .kolam-ornament {
+    font-size: 22px;
+    color: #c8832a;
+    letter-spacing: 6px;
+    margin: 6px 0;
+  }
+</style>
+
+<div class="invite-wrapper">
+
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="showLang('en')">EN</button>
+    <button class="lang-btn tamil" onclick="showLang('ta')">தமிழ்</button>
+  </div>
+
+  <!-- ENGLISH PAGE -->
+  <div class="page active" id="page-en">
+    <div class="card">
+
+      <div class="top-border">
+        <svg viewBox="0 0 520 90" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <defs>
+            <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#f5c842" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#e8831a" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- Marigold garland rope -->
+          <path d="M0,55 Q130,30 260,50 Q390,70 520,45" stroke="#c8832a" stroke-width="2.5" fill="none" opacity="0.7"/>
+          <!-- Marigold flowers along top -->
+          <g id="flowers-en">
+            <!-- Large flowers -->
+            <circle cx="60" cy="30" r="16" fill="#f5a623" opacity="0.9"/>
+            <circle cx="60" cy="30" r="10" fill="#f5c842"/>
+            <circle cx="60" cy="30" r="5" fill="#8B4513"/>
+
+            <circle cx="140" cy="20" r="19" fill="#e8561a" opacity="0.85"/>
+            <circle cx="140" cy="20" r="12" fill="#f5a623"/>
+            <circle cx="140" cy="20" r="6" fill="#8B4513"/>
+
+            <circle cx="220" cy="18" r="17" fill="#f5a623" opacity="0.9"/>
+            <circle cx="220" cy="18" r="11" fill="#f5c842"/>
+            <circle cx="220" cy="18" r="5" fill="#8B4513"/>
+
+            <circle cx="300" cy="20" r="20" fill="#e8561a" opacity="0.85"/>
+            <circle cx="300" cy="20" r="13" fill="#f5a623"/>
+            <circle cx="300" cy="20" r="6" fill="#8B4513"/>
+
+            <circle cx="380" cy="18" r="17" fill="#f5c842" opacity="0.9"/>
+            <circle cx="380" cy="18" r="11" fill="#f5a623"/>
+            <circle cx="380" cy="18" r="5" fill="#8B4513"/>
+
+            <circle cx="455" cy="22" r="19" fill="#e8561a" opacity="0.85"/>
+            <circle cx="455" cy="22" r="12" fill="#f5a623"/>
+            <circle cx="455" cy="22" r="6" fill="#8B4513"/>
+
+            <!-- Small buds -->
+            <circle cx="20" cy="45" r="8" fill="#f5a623" opacity="0.8"/>
+            <circle cx="20" cy="45" r="5" fill="#f5c842"/>
+            <circle cx="100" cy="35" r="9" fill="#f5c842" opacity="0.8"/>
+            <circle cx="100" cy="35" r="5" fill="#f5a623"/>
+            <circle cx="180" cy="28" r="8" fill="#f5a623" opacity="0.8"/>
+            <circle cx="180" cy="28" r="4" fill="#8B4513"/>
+            <circle cx="260" cy="28" r="9" fill="#e8561a" opacity="0.8"/>
+            <circle cx="260" cy="28" r="5" fill="#f5a623"/>
+            <circle cx="340" cy="25" r="8" fill="#f5c842" opacity="0.8"/>
+            <circle cx="340" cy="25" r="4" fill="#8B4513"/>
+            <circle cx="420" cy="22" r="9" fill="#f5a623" opacity="0.8"/>
+            <circle cx="420" cy="22" r="5" fill="#f5c842"/>
+            <circle cx="500" cy="35" r="8" fill="#e8561a" opacity="0.8"/>
+            <circle cx="500" cy="35" r="4" fill="#f5a623"/>
+
+            <!-- Leaves -->
+            <ellipse cx="80" cy="38" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-20,80,38)"/>
+            <ellipse cx="160" cy="32" rx="11" ry="5" fill="#3d6b35" opacity="0.7" transform="rotate(15,160,32)"/>
+            <ellipse cx="240" cy="30" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-10,240,30)"/>
+            <ellipse cx="320" cy="32" rx="11" ry="5" fill="#3d6b35" opacity="0.7" transform="rotate(20,320,32)"/>
+            <ellipse cx="400" cy="28" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-15,400,28)"/>
+            <ellipse cx="475" cy="35" rx="10" ry="5" fill="#3d6b35" opacity="0.7" transform="rotate(10,475,35)"/>
+
+            <!-- Corner kalash left -->
+            <rect x="5" y="52" width="22" height="28" rx="3" fill="#c8832a" opacity="0.9"/>
+            <rect x="8" y="48" width="16" height="8" rx="2" fill="#d4a054"/>
+            <ellipse cx="16" cy="48" rx="9" ry="5" fill="#f5c842"/>
+            <rect x="13" y="30" width="6" height="18" fill="#4a7c3f" opacity="0.9"/>
+            <ellipse cx="16" cy="28" rx="8" ry="6" fill="#4daa45" opacity="0.9"/>
+
+            <!-- Corner kalash right -->
+            <rect x="493" y="52" width="22" height="28" rx="3" fill="#c8832a" opacity="0.9"/>
+            <rect x="496" y="48" width="16" height="8" rx="2" fill="#d4a054"/>
+            <ellipse cx="504" cy="48" rx="9" ry="5" fill="#f5c842"/>
+            <rect x="501" y="30" width="6" height="18" fill="#4a7c3f" opacity="0.9"/>
+            <ellipse cx="504" cy="28" rx="8" ry="6" fill="#4daa45" opacity="0.9"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="body-content">
+        <p class="shree">॥ Om Ganapathi Namaha ॥ </p>
+        <div class="kolam-ornament">❧ ✦ ❧</div>
+
+        <div class="title-main">House Warming</div>
+        <div class="title-sub">Ceremony</div>
+
+        <div class="divider"><span class="divider-text">✦</span></div>
+
+        <p class="presents-by">Presents By</p>
+        <p class="presenter-name">Gunavathi Palani</p>
+
+        <p class="invite-text">Cordially invites you & your family to grace<br>the auspicious occasion of the</p>
+        <p style="font-size:15px;font-weight:600;color:#5a1e05;margin-bottom:12px;letter-spacing:1px;">House Warming Ceremony of our New Home</p>
+
+        <div class="divider"><span class="divider-text">🪔</span></div>
+
+        <div class="guest-block">
+          <div class="guest-name">Mr. Raja Palani &amp; Mrs. Jyothika</div>
+          <div class="guest-sep">— and —</div>
+          <div class="guest-name">Mr. Sampath Palani &amp; Mrs. Bhuvaneshwari</div>
+        </div>
+
+        <div class="divider"><span class="divider-text">✦</span></div>
+
+        <div class="details-grid">
+          <div class="detail-row">
+            <div class="detail-label">Date</div>
+            <div class="detail-value">Thursday, 4th June 2026</div>
+          </div>
+          <div class="divider"><span class="divider-text">❧</span></div>
+          <div class="detail-row">
+            <div class="detail-label">Time</div>
+            <div class="detail-value">Morning 7:00 AM Onwards</div>
+          </div>
+          <div class="divider"><span class="divider-text">❧</span></div>
+          <div class="detail-row">
+            <div class="detail-label">Venue</div>
+            <div class="detail-value venue-value">RAK Nagar (RAK Garden),<br>Opp. to Yamaha Showroom,<br>Royakottai – 635116</div>
+          </div>
+        </div>
+
+        <div class="divider"><span class="divider-text">✦</span></div>
+        <p class="footer-note">Breakfast follows. Your blessings are our greatest joy.</p>
+      </div>
+
+      <div class="bottom-border">
+        <svg viewBox="0 0 520 90" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <path d="M0,55 Q130,30 260,50 Q390,70 520,45" stroke="#c8832a" stroke-width="2.5" fill="none" opacity="0.7"/>
+          <circle cx="60" cy="30" r="16" fill="#f5a623" opacity="0.9"/>
+          <circle cx="60" cy="30" r="10" fill="#f5c842"/>
+          <circle cx="60" cy="30" r="5" fill="#8B4513"/>
+          <circle cx="140" cy="20" r="19" fill="#e8561a" opacity="0.85"/>
+          <circle cx="140" cy="20" r="12" fill="#f5a623"/>
+          <circle cx="140" cy="20" r="6" fill="#8B4513"/>
+          <circle cx="220" cy="18" r="17" fill="#f5a623" opacity="0.9"/>
+          <circle cx="220" cy="18" r="11" fill="#f5c842"/>
+          <circle cx="220" cy="18" r="5" fill="#8B4513"/>
+          <circle cx="300" cy="20" r="20" fill="#e8561a" opacity="0.85"/>
+          <circle cx="300" cy="20" r="13" fill="#f5a623"/>
+          <circle cx="300" cy="20" r="6" fill="#8B4513"/>
+          <circle cx="380" cy="18" r="17" fill="#f5c842" opacity="0.9"/>
+          <circle cx="380" cy="18" r="11" fill="#f5a623"/>
+          <circle cx="380" cy="18" r="5" fill="#8B4513"/>
+          <circle cx="455" cy="22" r="19" fill="#e8561a" opacity="0.85"/>
+          <circle cx="455" cy="22" r="12" fill="#f5a623"/>
+          <circle cx="455" cy="22" r="6" fill="#8B4513"/>
+          <circle cx="20" cy="45" r="8" fill="#f5a623" opacity="0.8"/>
+          <circle cx="100" cy="35" r="9" fill="#f5c842" opacity="0.8"/>
+          <circle cx="180" cy="28" r="8" fill="#f5a623" opacity="0.8"/>
+          <circle cx="260" cy="28" r="9" fill="#e8561a" opacity="0.8"/>
+          <circle cx="340" cy="25" r="8" fill="#f5c842" opacity="0.8"/>
+          <circle cx="420" cy="22" r="9" fill="#f5a623" opacity="0.8"/>
+          <circle cx="500" cy="35" r="8" fill="#e8561a" opacity="0.8"/>
+          <ellipse cx="80" cy="38" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-20,80,38)"/>
+          <ellipse cx="160" cy="32" rx="11" ry="5" fill="#3d6b35" opacity="0.7" transform="rotate(15,160,32)"/>
+          <ellipse cx="240" cy="30" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-10,240,30)"/>
+          <ellipse cx="320" cy="32" rx="11" ry="5" fill="#3d6b35" opacity="0.7" transform="rotate(20,320,32)"/>
+          <ellipse cx="400" cy="28" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-15,400,28)"/>
+          <rect x="5" y="52" width="22" height="28" rx="3" fill="#c8832a" opacity="0.9"/>
+          <rect x="8" y="48" width="16" height="8" rx="2" fill="#d4a054"/>
+          <ellipse cx="16" cy="48" rx="9" ry="5" fill="#f5c842"/>
+          <rect x="13" y="30" width="6" height="18" fill="#4a7c3f" opacity="0.9"/>
+          <ellipse cx="16" cy="28" rx="8" ry="6" fill="#4daa45" opacity="0.9"/>
+          <rect x="493" y="52" width="22" height="28" rx="3" fill="#c8832a" opacity="0.9"/>
+          <rect x="496" y="48" width="16" height="8" rx="2" fill="#d4a054"/>
+          <ellipse cx="504" cy="48" rx="9" ry="5" fill="#f5c842"/>
+          <rect x="501" y="30" width="6" height="18" fill="#4a7c3f" opacity="0.9"/>
+          <ellipse cx="504" cy="28" rx="8" ry="6" fill="#4daa45" opacity="0.9"/>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAMIL PAGE -->
+  <div class="page" id="page-ta">
+    <div class="card">
+
+      <div class="top-border">
+        <svg viewBox="0 0 520 90" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <path d="M0,55 Q130,30 260,50 Q390,70 520,45" stroke="#c8832a" stroke-width="2.5" fill="none" opacity="0.7"/>
+          <circle cx="60" cy="30" r="16" fill="#f5a623" opacity="0.9"/>
+          <circle cx="60" cy="30" r="10" fill="#f5c842"/>
+          <circle cx="60" cy="30" r="5" fill="#8B4513"/>
+          <circle cx="140" cy="20" r="19" fill="#e8561a" opacity="0.85"/>
+          <circle cx="140" cy="20" r="12" fill="#f5a623"/>
+          <circle cx="140" cy="20" r="6" fill="#8B4513"/>
+          <circle cx="220" cy="18" r="17" fill="#f5a623" opacity="0.9"/>
+          <circle cx="220" cy="18" r="11" fill="#f5c842"/>
+          <circle cx="220" cy="18" r="5" fill="#8B4513"/>
+          <circle cx="300" cy="20" r="20" fill="#e8561a" opacity="0.85"/>
+          <circle cx="300" cy="20" r="13" fill="#f5a623"/>
+          <circle cx="300" cy="20" r="6" fill="#8B4513"/>
+          <circle cx="380" cy="18" r="17" fill="#f5c842" opacity="0.9"/>
+          <circle cx="380" cy="18" r="11" fill="#f5a623"/>
+          <circle cx="380" cy="18" r="5" fill="#8B4513"/>
+          <circle cx="455" cy="22" r="19" fill="#e8561a" opacity="0.85"/>
+          <circle cx="455" cy="22" r="12" fill="#f5a623"/>
+          <circle cx="455" cy="22" r="6" fill="#8B4513"/>
+          <circle cx="20" cy="45" r="8" fill="#f5a623" opacity="0.8"/>
+          <circle cx="100" cy="35" r="9" fill="#f5c842" opacity="0.8"/>
+          <circle cx="180" cy="28" r="8" fill="#f5a623" opacity="0.8"/>
+          <circle cx="260" cy="28" r="9" fill="#e8561a" opacity="0.8"/>
+          <circle cx="340" cy="25" r="8" fill="#f5c842" opacity="0.8"/>
+          <circle cx="420" cy="22" r="9" fill="#f5a623" opacity="0.8"/>
+          <circle cx="500" cy="35" r="8" fill="#e8561a" opacity="0.8"/>
+          <ellipse cx="80" cy="38" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-20,80,38)"/>
+          <ellipse cx="160" cy="32" rx="11" ry="5" fill="#3d6b35" opacity="0.7" transform="rotate(15,160,32)"/>
+          <ellipse cx="240" cy="30" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-10,240,30)"/>
+          <ellipse cx="320" cy="32" rx="11" ry="5" fill="#3d6b35" opacity="0.7" transform="rotate(20,320,32)"/>
+          <ellipse cx="400" cy="28" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-15,400,28)"/>
+          <rect x="5" y="52" width="22" height="28" rx="3" fill="#c8832a" opacity="0.9"/>
+          <rect x="8" y="48" width="16" height="8" rx="2" fill="#d4a054"/>
+          <ellipse cx="16" cy="48" rx="9" ry="5" fill="#f5c842"/>
+          <rect x="13" y="30" width="6" height="18" fill="#4a7c3f" opacity="0.9"/>
+          <ellipse cx="16" cy="28" rx="8" ry="6" fill="#4daa45" opacity="0.9"/>
+          <rect x="493" y="52" width="22" height="28" rx="3" fill="#c8832a" opacity="0.9"/>
+          <rect x="496" y="48" width="16" height="8" rx="2" fill="#d4a054"/>
+          <ellipse cx="504" cy="48" rx="9" ry="5" fill="#f5c842"/>
+          <rect x="501" y="30" width="6" height="18" fill="#4a7c3f" opacity="0.9"/>
+          <ellipse cx="504" cy="28" rx="8" ry="6" fill="#4daa45" opacity="0.9"/>
+        </svg>
+      </div>
+
+      <div class="body-content">
+        <p class="shree tamil">॥ ஸ்ரீ கணேஷாய நமஹ ॥</p>
+        <div class="kolam-ornament">❧ ✦ ❧</div>
+
+        <div class="title-main">வீடு புகும்</div>
+        <div class="title-sub tamil">விழா</div>
+
+        <div class="divider"><span class="divider-text">✦</span></div>
+
+        <p class="presents-by tamil">வழங்குகிறார்</p>
+        <p class="presenter-name tamil">குணவதி பழனி</p>
+
+        <p class="invite-text tamil">உங்களையும் உங்கள் குடும்பத்தினரையும்<br>இந்த மங்களகரமான வீடு புகும் விழாவிற்கு<br>அன்புடன் அழைக்கின்றோம்</p>
+
+        <div class="divider"><span class="divider-text">🪔</span></div>
+
+        <div class="guest-block">
+          <div class="guest-name tamil">திரு. ராஜா பழனி &amp; திருமதி. ஜோதிகா</div>
+          <div class="guest-sep">— மற்றும் —</div>
+          <div class="guest-name tamil">திரு. சம்பத் பழனி &amp; திருமதி. புவனேஸ்வரி</div>
+        </div>
+
+        <div class="divider"><span class="divider-text">✦</span></div>
+
+        <div class="details-grid">
+          <div class="detail-row">
+            <div class="detail-label tamil">தேதி</div>
+            <div class="detail-value tamil">வியாழன், 4 ஜூன் 2026</div>
+          </div>
+          <div class="divider"><span class="divider-text">❧</span></div>
+          <div class="detail-row">
+            <div class="detail-label tamil">நேரம்</div>
+            <div class="detail-value tamil">காலை 7:00 மணி முதல்</div>
+          </div>
+          <div class="divider"><span class="divider-text">❧</span></div>
+          <div class="detail-row">
+            <div class="detail-label tamil">இடம்</div>
+            <div class="detail-value tamil venue-value">ரா.க. நகர் (ரா.க. கார்டன்)<br>யமஹா ஷோரூம் எதிரில்<br>ராயகோட்டை – 635116</div>
+          </div>
+        </div>
+
+        <div class="divider"><span class="divider-text">✦</span></div>
+        <p class="footer-note tamil">மதிய விருந்து உண்டு. உங்கள் ஆசீர்வாதமே எங்கள் மகிழ்ச்சி.</p>
+      </div>
+
+      <div class="bottom-border">
+        <svg viewBox="0 0 520 90" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <path d="M0,55 Q130,30 260,50 Q390,70 520,45" stroke="#c8832a" stroke-width="2.5" fill="none" opacity="0.7"/>
+          <circle cx="60" cy="30" r="16" fill="#f5a623" opacity="0.9"/>
+          <circle cx="60" cy="30" r="10" fill="#f5c842"/>
+          <circle cx="60" cy="30" r="5" fill="#8B4513"/>
+          <circle cx="140" cy="20" r="19" fill="#e8561a" opacity="0.85"/>
+          <circle cx="140" cy="20" r="12" fill="#f5a623"/>
+          <circle cx="140" cy="20" r="6" fill="#8B4513"/>
+          <circle cx="220" cy="18" r="17" fill="#f5a623" opacity="0.9"/>
+          <circle cx="220" cy="18" r="11" fill="#f5c842"/>
+          <circle cx="220" cy="18" r="5" fill="#8B4513"/>
+          <circle cx="300" cy="20" r="20" fill="#e8561a" opacity="0.85"/>
+          <circle cx="300" cy="20" r="13" fill="#f5a623"/>
+          <circle cx="300" cy="20" r="6" fill="#8B4513"/>
+          <circle cx="380" cy="18" r="17" fill="#f5c842" opacity="0.9"/>
+          <circle cx="380" cy="18" r="11" fill="#f5a623"/>
+          <circle cx="380" cy="18" r="5" fill="#8B4513"/>
+          <circle cx="455" cy="22" r="19" fill="#e8561a" opacity="0.85"/>
+          <circle cx="455" cy="22" r="12" fill="#f5a623"/>
+          <circle cx="455" cy="22" r="6" fill="#8B4513"/>
+          <circle cx="20" cy="45" r="8" fill="#f5a623" opacity="0.8"/>
+          <circle cx="100" cy="35" r="9" fill="#f5c842" opacity="0.8"/>
+          <circle cx="180" cy="28" r="8" fill="#f5a623" opacity="0.8"/>
+          <circle cx="260" cy="28" r="9" fill="#e8561a" opacity="0.8"/>
+          <circle cx="340" cy="25" r="8" fill="#f5c842" opacity="0.8"/>
+          <circle cx="420" cy="22" r="9" fill="#f5a623" opacity="0.8"/>
+          <circle cx="500" cy="35" r="8" fill="#e8561a" opacity="0.8"/>
+          <ellipse cx="80" cy="38" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-20,80,38)"/>
+          <ellipse cx="160" cy="32" rx="11" ry="5" fill="#3d6b35" opacity="0.7" transform="rotate(15,160,32)"/>
+          <ellipse cx="240" cy="30" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-10,240,30)"/>
+          <ellipse cx="320" cy="32" rx="11" ry="5" fill="#3d6b35" opacity="0.7" transform="rotate(20,320,32)"/>
+          <ellipse cx="400" cy="28" rx="10" ry="5" fill="#4a7c3f" opacity="0.7" transform="rotate(-15,400,28)"/>
+          <rect x="5" y="52" width="22" height="28" rx="3" fill="#c8832a" opacity="0.9"/>
+          <rect x="8" y="48" width="16" height="8" rx="2" fill="#d4a054"/>
+          <ellipse cx="16" cy="48" rx="9" ry="5" fill="#f5c842"/>
+          <rect x="13" y="30" width="6" height="18" fill="#4a7c3f" opacity="0.9"/>
+          <ellipse cx="16" cy="28" rx="8" ry="6" fill="#4daa45" opacity="0.9"/>
+          <rect x="493" y="52" width="22" height="28" rx="3" fill="#c8832a" opacity="0.9"/>
+          <rect x="496" y="48" width="16" height="8" rx="2" fill="#d4a054"/>
+          <ellipse cx="504" cy="48" rx="9" ry="5" fill="#f5c842"/>
+          <rect x="501" y="30" width="6" height="18" fill="#4a7c3f" opacity="0.9"/>
+          <ellipse cx="504" cy="28" rx="8" ry="6" fill="#4daa45" opacity="0.9"/>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showLang(lang) {
+  document.getElementById('page-en').classList.toggle('active', lang === 'en');
+  document.getElementById('page-ta').classList.toggle('active', lang === 'ta');
+  document.querySelectorAll('.lang-btn').forEach(function(btn, i) {
+    btn.classList.toggle('active', (i === 0 && lang === 'en') || (i === 1 && lang === 'ta'));
+  });
+}
+</script>
